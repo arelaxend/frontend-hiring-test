@@ -63,7 +63,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
       - deploy:
           context: aws-account
           requires:
@@ -71,4 +71,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
