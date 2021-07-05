@@ -38,20 +38,12 @@ To run the tests and collect code coverage information:
 yarn run testCoverage
 ```
 
-## Run linter
+## Run prettier
 
-We're using [eslint](https://eslint.org/) here:
-
-```
-yarn run lint
-```
-
-## Component library
-
-We're using [storybook](https://github.com/storybooks/storybook) here:
+We're using [prettier](v) here:
 
 ```
-yarn run storybook
+yarn prettier:fix
 ```
 
 The storybook stand alone app is now running on [localhost:9001](http://localhost:9001).
