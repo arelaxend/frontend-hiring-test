@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { useSelector } from "src/store";
-import { setCall as setCallAction } from "src/store/get/actions";
-import { Note } from "src/store/get/types";
+import { useSelector } from "../../store";
+import { setCall as setCallAction } from "../../store/get/actions";
+import { Note } from "../../store/get/types";
 
 import { endpoint } from "../calls";
 
@@ -32,9 +32,9 @@ const ADD_NOTE = gql`
 
 const DetailsView = () => {
   const dispatch = useDispatch();
-  const { calls } = useSelector((state) => state.get);
+  const { calls } = useSelector((state: any) => state.get);
   const { id }: any = useParams();
-  const { token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state: any) => state.auth);
 
   const call = calls.get(id);
   const graphQLClient = new GraphQLClient(endpoint);

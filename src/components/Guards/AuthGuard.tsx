@@ -2,7 +2,7 @@ import { request } from "graphql-request";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setToken } from "src/store/auth/actions";
+import { setToken } from "../../store/auth/actions";
 import useSWR from "swr";
 
 const endpoint = "https://frontend-test-api.aircall.io/graphql";

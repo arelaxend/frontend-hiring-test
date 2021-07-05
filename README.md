@@ -2,7 +2,7 @@
 
 This test is a part of the hiring process at Aircall for frontend positions. More information about the test  [here](https://github.com/aircall/frontend-test-react).
 
-[![CircleCI](https://circleci.com/gh/arelaxend/frontend-test-react.svg?style=svg)](https://circleci.com/gh/arelaxend/frontend-test-react)
+[![CircleCI](https://circleci.com/gh/arelaxend/frontend-hiring-test.svg?style=svg)](https://circleci.com/gh/arelaxend/frontend-hiring-test)
 
 ## Summary
 
@@ -12,6 +12,7 @@ The app has two different components:
 - **Activity Feed** - simple list of calls
 - **Activity Detail** - detail of a call
 
+![Activity Details](/public/frontend-test-A.jpg) ![Activity Feed](/public/frontend-test-B.jpg)
 ## Installation
 
 We're using [yarn](https://yarnpkg.com) here:

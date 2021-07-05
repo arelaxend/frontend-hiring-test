@@ -2,8 +2,8 @@ import { Button, Spacer } from "@aircall/tractor";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "src/store";
-import { setOffsets } from "src/store/get/actions";
+import { useSelector } from "../store";
+import { setOffsets } from "../store/get/actions";
 
 const Pagination = ({
   hasNextPage,
@@ -11,7 +11,7 @@ const Pagination = ({
   hasNextPage: boolean;
 }) => {
   const dispatch = useDispatch();
-  const { count, pageOffset, loadOffset } = useSelector((state) => state.get);
+  const { count, pageOffset, loadOffset } = useSelector((state: any) => state.get);
 
   useEffect(() => {
     const maxPageOffset: number = Math.floor(count / 10);

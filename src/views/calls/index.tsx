@@ -5,14 +5,14 @@ import React from "react";
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import DisplayDate from "src/components/DisplayDate";
-import FilterCall from "src/components/FilterCall";
-import IconCall from "src/components/IconCall";
-import Pagination from "src/components/Pagination";
-import { dateTime, onlyTime } from "src/hooks/time";
-import { useSelector } from "src/store";
-import { filtering, setCall } from "src/store/get/actions";
-import { Call } from "src/store/get/types";
+import DisplayDate from "../../components/DisplayDate";
+import FilterCall from "../../components/FilterCall";
+import IconCall from "../../components/IconCall";
+import Pagination from "../../components/Pagination";
+import { dateTime, onlyTime } from "../../hooks/time";
+import { useSelector } from "../../store";
+import { filtering, setCall } from "../../store/get/actions";
+import { Call } from "../../store/get/types";
 import useSWR from "swr";
 
 export const endpoint = "https://frontend-test-api.aircall.io/graphql";
@@ -63,9 +63,9 @@ const ARCHIVE_QUERY = gql`
 
 const CallsView = () => {
   const dispatch = useDispatch();
-  const { calls, filtered, pageOffset, loadOffset, filters } = useSelector((state) => state.get);
-  const { token } = useSelector((state) => state.auth);
-  const ids = filtered.map(([, node]) => node.id);
+  const { calls, filtered, pageOffset, loadOffset, filters } = useSelector((state: any) => state.get);
+  const { token } = useSelector((state: any) => state.auth);
+  const ids = filtered.map(([, node]: [string, Call]) => node.id);
 
   const graphQLClient = new GraphQLClient(endpoint);
 
@@ -112,7 +112,7 @@ const CallsView = () => {
     data && data.paginatedCalls && data.paginatedCalls.hasNextPage;
 
   const { selected, allSelected, isSelected, toggle, toggleAll } =
-    useSelections(ids, []);
+    useSelections<string>(ids, []);
 
   const hasArchived = selected
     .map((id: string) => calls.get(id)?.is_archived)
@@ -140,7 +140,6 @@ const CallsView = () => {
             console.log("error");
           });
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   return (

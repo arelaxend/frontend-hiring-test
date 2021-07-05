@@ -2,7 +2,7 @@ import { enableMapSet } from "immer"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { configureStore } from 'src/store/configureStore';
+import { configureStore } from './store/configureStore';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';

@@ -1,7 +1,7 @@
 import { Flex } from "@aircall/tractor";
 import React, { useLayoutEffect, useState } from "react";
-import { onlyDate } from "src/hooks/time";
-import { Call } from "src/store/get/types";
+import { onlyDate } from "../hooks/time";
+import { Call } from "../store/get/types";
 
 const DisplayDate = ({
   id,

@@ -3,13 +3,13 @@ import { useSet, useToggle } from "ahooks";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "src/store";
-import { setFilters } from "src/store/get/actions";
-import { initialFilters } from "src/store/get/reducer";
+import { useSelector } from "../store";
+import { setFilters } from "../store/get/actions";
+import { initialFilters } from "../store/get/reducer";
 
 const FilterCall = () => {
   const dispatch = useDispatch();
-  const { filters } = useSelector((state) => state.get);
+  const { filters } = useSelector((state: any) => state.get);
 
   const icon = (filter: string, height: number) => {
     switch (filter) {

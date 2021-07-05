@@ -9,13 +9,13 @@ const routesConfig: any[] = [
     exact: true,
     path: "/",
     layout: MainLayout,
-    component: lazy(() => import("src/views/calls")),
+    component: lazy(() => import("./views/calls")),
   },
   {
     exact: true,
     path: "/404",
     layout: MainLayout,
-    component: lazy(() => import("src/views/404/Error404View")),
+    component: lazy(() => import("./views/404/Error404View")),
   },
   {
     layout: MainLayout,
@@ -26,7 +26,7 @@ const routesConfig: any[] = [
       {
         exact: true,
         path: ["/call/:id"],
-        component: lazy(() => import("src/views/details")),
+        component: lazy(() => import("./views/details")),
       }
     ],
   },

@@ -1,9 +1,9 @@
-import { createBrowserHistory } from "history";
-import { Route, Router } from "react-router-dom";
-import Routes from "src/Routes";
-import { QueryParamProvider } from "use-query-params";
+import { createBrowserHistory } from 'history';
+import { Route, Router } from 'react-router-dom';
+import { QueryParamProvider } from 'use-query-params';
+import Routes from './Routes';
 
-import AuthGuard from "./components/Guards/AuthGuard";
+import AuthGuard from './components/Guards/AuthGuard';
 
 const App = () => {
   const history = createBrowserHistory();
