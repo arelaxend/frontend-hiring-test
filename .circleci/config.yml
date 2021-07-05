@@ -11,8 +11,8 @@ executors:
 commands:
   install-dependencies:
     steps:
-      - run: yarn add .
-      - run: cd infrastructure && yarn add .
+      - run: yarn install
+      - run: cd infrastructure && yarn install
   cache-dependencies:
     steps:
       - save_cache:
