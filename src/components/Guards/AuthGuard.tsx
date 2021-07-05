@@ -24,7 +24,7 @@ function AuthGuard({ children }: any) {
   const password = "pwd";
   const dispatch = useDispatch();
 
-  const { data: tokens, error } = useSWR(
+  const { data: tokens } = useSWR(
     [LOGIN_MUTATION, username, password],
     (mutation, username, password) =>
       request(endpoint, mutation, { username, password }),
