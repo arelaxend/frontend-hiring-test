@@ -1,8 +1,88 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { cleanup, waitFor } from '@testing-library/react';
+import { CALLS_QUERY } from './views/calls';
+import { CALLS_MOCK } from './__mocks__/calls';
+import { enableMapSet } from 'immer';
+import AuthGuard, {
+	LOGIN_MUTATION,
+	password,
+	REFRESH_MUTATION,
+	username,
+} from './components/Guards/AuthGuard';
+import { MockedWrapper, renderWithRouter } from './testHelpers';
+import { configureStore } from './store/configureStore';
+import { Provider } from 'react-redux';
+import { Route, Router } from 'react-router-dom';
+import { QueryParamProvider } from 'use-query-params';
+import { createBrowserHistory } from 'history';
+import Routes from './Routes';
 
-it('renders welcome message', () => {
-  render(<App />);
-  expect(screen.getByText('Archive')).toBeInTheDocument();
+enableMapSet();
+
+const mocks = [
+	{
+		request: {
+			query: CALLS_QUERY,
+			variables: { offset: 0, limit: 10 },
+		},
+		result: CALLS_MOCK,
+	},
+	{
+		request: {
+			query: LOGIN_MUTATION,
+			variables: { username, password },
+		},
+		result: {
+			data: {
+				login: {
+					access_token:
+						'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhaXJjYWxsIiwidXNlcm5hbWUiOiJhaXJjYWxsIiwiaWF0IjoxNjI1NTIyMzUzLCJleHAiOjE2MjU1MjI5NTN9.EYqR2dJCef60aLclpWedJAu1Ej8mutJIue6RvOWuuuI',
+					user: { id: 'aircall', username: 'aircall' },
+				},
+			},
+		},
+	},
+	{
+		request: {
+			query: REFRESH_MUTATION,
+		},
+		result: {
+			data: {
+				refreshToken: {
+					access_token:
+						'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhaXJjYWxsIiwidXNlcm5hbWUiOiJhaXJjYWxsIiwiaWF0IjoxNjI1NTIyMzUzLCJleHAiOjE2MjU1MjI5NTN9.EYqR2dJCef60aLclpWedJAu1Ej8mutJIue6RvOWuuuI',
+					user: { id: 'aircall', username: 'aircall' },
+				},
+			},
+		},
+	},
+];
+
+let store: any;
+beforeEach(() => {
+	store = configureStore();
+});
+
+afterEach(cleanup);
+
+it('renders welcome message', async () => {
+	jest.useFakeTimers();
+
+	const history = createBrowserHistory();
+
+	const { getByTestId, getByText } = renderWithRouter(
+		<MockedWrapper mocks={mocks}>
+			<Provider store={store}>
+				<Router history={history}>
+					<QueryParamProvider ReactRouterRoute={Route}>
+						<AuthGuard>
+              <Routes />
+						</AuthGuard>
+					</QueryParamProvider>
+				</Router>
+			</Provider>
+		</MockedWrapper>,
+		'/'
+	);
+
+	await waitFor(() => expect(getByText(/Filters/)).toBeTruthy());
 });
