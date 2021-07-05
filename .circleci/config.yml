@@ -11,8 +11,8 @@ executors:
 commands:
   install-dependencies:
     steps:
-      - run: npm install .
-      - run: cd infrastructure && npm install .
+      - run: yarn install .
+      - run: cd infrastructure && yarn install .
   cache-dependencies:
     steps:
       - save_cache:
@@ -26,10 +26,10 @@ commands:
           key: dependency-cache-{{ checksum "package.json" }}
   build-app:
     steps:
-      - run: npm run build
+      - run: yarn build
   deploy-app:
     steps:
-      - run: cd infrastructure && npm run deploy
+      - run: cd infrastructure && yarn deploy
 
 jobs:
   build:
