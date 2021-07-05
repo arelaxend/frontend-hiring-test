@@ -15,7 +15,8 @@ import { Route, Router } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
 import { createBrowserHistory } from 'history';
 import Routes from './Routes';
-
+import MainLayout from './layout/MainLayout';
+import CallsView from "./views/calls"
 enableMapSet();
 
 const mocks = [
@@ -75,7 +76,11 @@ it('renders welcome message', async () => {
 				<Router history={history}>
 					<QueryParamProvider ReactRouterRoute={Route}>
 						<AuthGuard>
-              <Routes />
+							<Route path="/" exact>
+								<MainLayout>
+                  <CallsView />
+                </MainLayout>
+							</Route>
 						</AuthGuard>
 					</QueryParamProvider>
 				</Router>
