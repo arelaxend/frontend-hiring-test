@@ -1,22 +1,18 @@
 import { cleanup, waitFor } from '@testing-library/react';
-import { CALLS_QUERY } from './views/calls';
-import { CALLS_MOCK } from './__mocks__/calls';
+import { createBrowserHistory } from 'history';
 import { enableMapSet } from 'immer';
-import AuthGuard, {
-	LOGIN_MUTATION,
-	password,
-	REFRESH_MUTATION,
-	username,
-} from './components/Guards/AuthGuard';
-import { MockedWrapper, renderWithRouter } from './testHelpers';
-import { configureStore } from './store/configureStore';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
-import { createBrowserHistory } from 'history';
-import Routes from './Routes';
+
+import { CALLS_MOCK } from './__mocks__/calls';
+import AuthGuard, { LOGIN_MUTATION, password, REFRESH_MUTATION, username } from './components/Guards/AuthGuard';
 import MainLayout from './layout/MainLayout';
-import CallsView from "./views/calls"
+import { configureStore } from './store/configureStore';
+import { MockedWrapper, renderWithRouter } from './testHelpers';
+import { CALLS_QUERY } from './views/calls';
+import CallsView from './views/calls';
+
 enableMapSet();
 
 const mocks = [
@@ -70,7 +66,7 @@ it('renders welcome message', async () => {
 
 	const history = createBrowserHistory();
 
-	const { getByTestId, getByText } = renderWithRouter(
+	const { getByText } = renderWithRouter(
 		<MockedWrapper mocks={mocks}>
 			<Provider store={store}>
 				<Router history={history}>
@@ -78,8 +74,8 @@ it('renders welcome message', async () => {
 						<AuthGuard>
 							<Route path="/" exact>
 								<MainLayout>
-                  <CallsView />
-                </MainLayout>
+									<CallsView />
+								</MainLayout>
 							</Route>
 						</AuthGuard>
 					</QueryParamProvider>

@@ -1,10 +1,11 @@
-import { request } from 'graphql-request';
-import React from 'react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setToken } from '../../store/auth/actions';
 import { gql, useMutation } from '@apollo/client';
 import { useInterval } from 'ahooks';
+import { request } from 'graphql-request';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setToken } from '../../store/auth/actions';
 
 const endpoint = 'https://frontend-test-api.aircall.io/graphql';
 
@@ -42,7 +43,7 @@ function AuthGuard({ children }: any) {
 		variables: { username, password },
 	});
 
-	const [refreshToken, { data: tokens }] = useMutation(REFRESH_MUTATION, {
+	const [refreshToken, { loading, data: tokens }] = useMutation(REFRESH_MUTATION, {
 		context: {
 			headers: {
 				authorization: `Bearer ${
@@ -63,10 +64,17 @@ function AuthGuard({ children }: any) {
 
 	useInterval(() => {
 		refreshToken();
-	}, 1000 * 60 * 5);
+	}, 1000 * 60 * 10);
 
-	const accessToken =
-		tokens && tokens.refreshToken && tokens.refreshToken.access_token;
+	const [accessToken, setAccessToken] = useState<string>();
+
+	useEffect(() => {
+		if (loading) return
+		if (!tokens || !tokens.refreshToken) return
+
+		setAccessToken(tokens.refreshToken.access_token)
+	}, [loading, tokens]);
+		
 
 	useEffect(() => {
 		if (!accessToken) return;
@@ -78,7 +86,7 @@ function AuthGuard({ children }: any) {
 }
 
 const areEqual = () => {
-	return true;
+	return false;
 };
 
 export default React.memo(AuthGuard, areEqual);

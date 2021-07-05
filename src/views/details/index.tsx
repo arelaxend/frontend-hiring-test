@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+
 import { useSelector } from "../../store";
 import { setCall as setCallAction } from "../../store/get/actions";
 import { Note } from "../../store/get/types";
-
 import { endpoint } from "../calls";
 
 const ADD_NOTE = gql`
@@ -37,6 +37,7 @@ const DetailsView = () => {
   const { token } = useSelector((state: any) => state.auth);
 
   const call = calls.get(id);
+  console.log(calls, id)
   const graphQLClient = new GraphQLClient(endpoint);
 
   const [content, setContent] = useState<string>();
