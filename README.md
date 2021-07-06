@@ -38,14 +38,6 @@ To run the tests and collect code coverage information:
 yarn run testCoverage
 ```
 
-## Run prettier
-
-We're using [prettier](v) here:
-
-```
-yarn prettier:fix
-```
-
 The storybook stand alone app is now running on [localhost:9001](http://localhost:9001).
 
 ## Deployment: Automatic Setup

@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Form, FormItem, Spacer, Textarea, Typography } from "@aircall/tractor";
-import { gql, GraphQLClient } from "graphql-request";
-import React, { useState } from "react";
+import { gql, useMutation } from '@apollo/client';
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -8,11 +8,10 @@ import { Redirect } from "react-router-dom";
 import { useSelector } from "../../store";
 import { setCall as setCallAction } from "../../store/get/actions";
 import { Note } from "../../store/get/types";
-import { endpoint } from "../calls";
 
 const ADD_NOTE = gql`
-  mutation addNote($id: ID!, $content: String!) {
-    addNote(input: { activityId: $id, content: $content }) {
+  mutation addNote($activityId: ID!, $content: String!) {
+    addNote(input: { activityId: $activityId, content: $content }) {
       id
       direction
       from
@@ -37,34 +36,26 @@ const DetailsView = () => {
   const { token } = useSelector((state: any) => state.auth);
 
   const call = calls.get(id);
-  console.log(calls, id)
-  const graphQLClient = new GraphQLClient(endpoint);
-
   const [content, setContent] = useState<string>();
 
-  const [error, setError] = useState<string>();
+  const [addNote, { data }] = useMutation(ADD_NOTE, {
+		variables: { activityId: id, content },
+		context: { headers: { authorization: `Bearer ${token}` } },
+	});
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!content || content.length === 0) return;
-    graphQLClient
-      .request(
-        ADD_NOTE,
-        { id, content },
-        {
-          authorization: `Bearer ${token}`,
-        }
-      )
-      .then((data: any) => {
-        const n = data.addNote;
-        dispatch(setCallAction(n.id, n));
-      })
-      .catch((e) => {
-        setError("error");
-      });
-
+    addNote();
     setContent("");
   };
+
+  useEffect(() => {
+    if (!data || !data.addNote) return;
+    
+    const n = data.addNote;
+    dispatch(setCallAction(n.id, n));
+  }, [data, dispatch])
 
   if (!call) {
     return <Redirect to="/" />;
@@ -142,11 +133,6 @@ const DetailsView = () => {
               <Typography mt={3} mb={3} variant="displayS">
                 Add a note
               </Typography>
-              {error && (
-                <Typography mt={3} mb={3} variant="subheading">
-                  {error}
-                </Typography>
-              )}
               <Form onSubmit={handleSubmit}>
                 <FormItem name="content">
                   <Textarea

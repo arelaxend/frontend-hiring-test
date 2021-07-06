@@ -1,20 +1,32 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { createBrowserHistory } from 'history';
 import { enableMapSet } from 'immer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore } from './store/configureStore';
 
 enableMapSet();
 const history = createBrowserHistory();
+const store = configureStore();
+const client = new ApolloClient({
+	uri: 'https://frontend-test-api.aircall.io/graphql',
+	cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Router history={history}>
-			<App />
-		</Router>
+		<ApolloProvider client={client}>
+			<Provider store={store}>
+				<Router history={history}>
+					<App />
+				</Router>
+			</Provider>
+		</ApolloProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

@@ -1,12 +1,6 @@
 import { ActionCreator } from 'redux';
 
-import {
-	Call,
-	FilteringAction,
-	SetCallAction,
-	SetFiltersAction,
-	SetOffsetsAction,
-} from './types';
+import { Call, FilteringAction, SetCallAction, SetFiltersAction, SetOffsetsAction, SetSelectedAction, SetToarchivedAction } from './types';
 
 export const setCall: ActionCreator<SetCallAction> = (
 	id: string,
@@ -30,6 +24,24 @@ export const setFilters: ActionCreator<SetFiltersAction> = (
 	type: '@@get/SET_FILTERS',
 	payload: {
 		filters,
+	},
+});
+
+export const setToarchived: ActionCreator<SetToarchivedAction> = (
+	toarchived: string[]
+) => ({
+	type: '@@get/SET_TOARCHIVED',
+	payload: {
+		toarchived,
+	},
+});
+
+export const setSelected: ActionCreator<SetSelectedAction> = (
+	selected: string[]
+) => ({
+	type: '@@get/SET_SELECTED',
+	payload: {
+		selected,
 	},
 });
 

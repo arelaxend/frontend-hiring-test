@@ -71,7 +71,6 @@ const renderRoutes = (routes: any, pathname: string, search: string) =>
 
 function Routes() {
   const { pathname, search } = useLocation();
-  console.log({ pathname, search })
   return renderRoutes(routesConfig, pathname, search);
 }
 

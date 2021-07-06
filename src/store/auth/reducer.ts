@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { Reducer } from 'redux';
 
-import { AuthActions, AuthState } from './types';
+import { AuthState } from './types';
 
 export const initialState: AuthState = {
 	token: '',

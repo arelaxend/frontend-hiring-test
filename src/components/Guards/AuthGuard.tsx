@@ -1,13 +1,10 @@
 import { gql, useMutation } from '@apollo/client';
 import { useInterval } from 'ahooks';
-import { request } from 'graphql-request';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setToken } from '../../store/auth/actions';
-
-const endpoint = 'https://frontend-test-api.aircall.io/graphql';
 
 export const LOGIN_MUTATION = gql`
 	mutation login($username: String!, $password: String!) {
@@ -55,12 +52,12 @@ function AuthGuard({ children }: any) {
 
 	useEffect(() => {
 		login();
-	}, []);
+	}, [login]);
 
 	useEffect(() => {
 		if (!data || !data.login || !data.login.access_token) return;
 		refreshToken();
-	}, [data]);
+	}, [data, refreshToken]);
 
 	useInterval(() => {
 		refreshToken();
@@ -86,7 +83,7 @@ function AuthGuard({ children }: any) {
 }
 
 const areEqual = () => {
-	return false;
+	return true;
 };
 
 export default React.memo(AuthGuard, areEqual);

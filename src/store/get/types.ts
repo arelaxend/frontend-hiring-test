@@ -27,6 +27,8 @@ export interface GetState {
 	sorted: Array<[string, Call]>;
 	unsorted: Array<[string, Call]>;
 	filtered: Array<[string, Call]>;
+	selected: Array<[string, Call]>;
+	toarchived: Array<string>;
 }
 
 export interface SetCallAction extends Action {
@@ -41,6 +43,19 @@ export interface SetFiltersAction extends Action {
 	type: '@@get/SET_FILTERS';
 	payload: {
 		filters: string[];
+	};
+}
+export interface SetToarchivedAction extends Action {
+	type: '@@get/SET_TOARCHIVED';
+	payload: {
+		toarchived: string[];
+	};
+}
+
+export interface SetSelectedAction extends Action {
+	type: '@@get/SET_SELECTED';
+	payload: {
+		selected: string[];
 	};
 }
 
@@ -62,4 +77,6 @@ export type GetActions =
 	| SetCallAction
 	| SetFiltersAction
 	| SetOffsetsAction
-	| FilteringAction;
+	| FilteringAction
+	| SetSelectedAction
+	| SetToarchivedAction;
