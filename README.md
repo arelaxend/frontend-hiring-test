@@ -1,6 +1,6 @@
 # [aircall.io](https://aircall.io) - Frontend technical test
 
-This test is a part of the hiring process at Aircall for frontend positions. More information about the test  [here](https://github.com/aircall/frontend-test-react).
+This test is a part of the hiring process at Aircall for frontend positions. More information about the test  [here](https://github.com/aircall/frontend-hiring-test/blob/master/README.md).
 
 [![CircleCI](https://circleci.com/gh/arelaxend/frontend-hiring-test.svg?style=svg)](https://circleci.com/gh/arelaxend/frontend-hiring-test)
 
@@ -26,22 +26,14 @@ The app is now running on [localhost:3000](http://localhost:3000).
 
 ## Run tests
 
-We're using [react-script](https://create-react-app.dev/docs/running-tests/). Some of the components and views have been tested. To run the tests:
+We're using [react-script](https://create-react-app.dev/docs/running-tests/). Some of the components and views have been tested. More to come! 
+To run the tests:
 
 ```
 yarn test
 ```
-
-To run the tests and collect code coverage information:
-
-```
-yarn run testCoverage
-```
-
-The storybook stand alone app is now running on [localhost:9001](http://localhost:9001).
-
 ## Deployment: Automatic Setup
-
+We have an automatic deployment on CircleCI.
 ## Deployment: Manual Setup
 We have been deploying this React app to AWS with S3, Cloudfront, and Cloud Development Kit (CDK) and CircleCI.
 If you want to know more about this process, please feel free to check [this blog post](https://www.xerris.com/insights/deploying-your-react-app-to-aws-in-20-minutes-with-s3-cloudfront-and-cloud-development-kit-cdk-and-circleci/)
@@ -169,4 +161,5 @@ input AddNoteInput {
 ## What's next ?
 - Setup a style guide to build a stand alone components documentation app.
 - implement subscriptions instead of getting the data from the queries or mutations responses.
-- use the `refreshToken` mutation instead of using SWR auto-refresh.
+- add more tests !
+- add prettier and a custom eslint (for now we use the one by default)
